@@ -20,3 +20,24 @@ library(gapminder)
 How are factors like race, gender, parent's education impacting test performance of students?
 
 This question is extremely important in discovering what trends exist and which students are more likely to succeed in their tests. It will be interesting to see if there is a difference in scores between genders or races. We would also expect an increase in scores somewhat proportionate to an increase in parent's education. 
+=======
+library(lubridate)
+```
+
+
+```{r}
+Exams_math <- lm(math.score ~ test.preparation.course, data = Exams)
+ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = math.score)) +
+  geom_jitter()+
+  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
+
+Exams_reading <- lm(reading.score ~ test.preparation.course, data = Exams)
+ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = reading.score)) +
+  geom_jitter()+
+  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
+
+Exams_writing <- lm(writing.score ~ test.preparation.course, data = Exams)
+ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = writing.score)) +
+  geom_jitter()+
+  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
+```
