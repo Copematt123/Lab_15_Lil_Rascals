@@ -14,7 +14,9 @@ library(ggplot2)
 library(cowplot)
 library(stringr)
 library(gapminder)
-library(lubridate)
 ```
 
+### Overall Question
+How are factors like race, gender, parent's education impacting test performance of students?
 
+This question is extremely important in discovering what trends exist and which students are more likely to succeed in their tests. It will be interesting to see if there is a difference in scores between genders or races. We would also expect an increase in scores somewhat proportionate to an increase in parent's education. 
