@@ -7,7 +7,14 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+Exams <- read.csv("StudentsPerformance.csv", sep = ",")
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(cowplot)
+library(stringr)
+library(gapminder)
+library(lubridate)
 ```
 
 
