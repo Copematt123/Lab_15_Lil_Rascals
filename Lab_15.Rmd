@@ -111,4 +111,4 @@ I repeated this process for reading scores and found that it was still statistic
 
 
 #### Kelsey's Reflection
-In lab 2, one of my goals was to get better at R throughout the course of this class. I have learned so much about R and R-studio formatting and manipulating data. I have learned how to do permutation tests and gotten better at ggplot. I have come so far and learned so much throughout this class. I feel that I have gotten so much better at R and the tools it comes with. 
+In lab 2, one of my goals was to get better at R throughout the course of this class. I have learned so much about R and R-studio formatting and manipulating data. I have learned how to do permutation tests and gotten better at ggplot. I have come so far and learned so much throughout this class. I feel that I have gotten so much better at R and the tools it comes with. I would say my long term goals are very similar. Although I feel like now I know more about my plans for the future since I am graduating in a week. I also had my assignment for peace corps changed on me and I now leave for Lesotho in September. 
