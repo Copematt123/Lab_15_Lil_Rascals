@@ -104,9 +104,11 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
 I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. 
 
+### Team Conclusion
 
 
 ### Lab 2 Reflection
 
 
 #### Kelsey's Reflection
+In lab 2, one of my goals was to get better at R throughout the course of this class. I have learned so much about R and R-studio formatting and manipulating data. I have learned how to do permutation tests and gotten better at ggplot. I have come so far and learned so much throughout this class. I feel that I have gotten so much better at R and the tools it comes with. 
