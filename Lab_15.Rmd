@@ -72,7 +72,7 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
   xlab("Means")+
   geom_vline(xintercept = realdiff, color = "red", size = .3)+
   ylab("Number")+
-  ggtitle("Difference in Means in Math Test Scores")
+  ggtitle("Difference in Means in Math Test Scores with Free/Reduced Lunch")
 perm_mean <- function(perms = 1000, n1)
 {
   mean_mat <- matrix(0,1000,1)
@@ -98,11 +98,43 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
   xlab("Means")+
   geom_vline(xintercept = realdiff, color = "red", size = .3)+
   ylab("Number")+
-  ggtitle("Difference in Means in Reading Test Scores")
+  ggtitle("Difference in Means in Reading Test Scores with Free/Reduced Lunch")
 
 ```
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
 I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. 
+
+#### James's Subquestion
+```{r}
+Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
+perm_mean2 <- function(perms = 1000, n1)
+{
+  mean_mat <- matrix(0,1000,1)
+
+  for (i in c(1:perms))
+  {
+    rsamp1 <- sample(Exams3$math.score, n1, replace = FALSE)
+    A <- mean(rsamp1)
+    B <- mean(Exams$math.score)
+    mean_mat[[i]] <- (A-B)
+  }
+  return(mean_mat)
+}
+mean(Exams$math.score)
+means <- as.tibble(perm_mean2( n1=33))
+sd(Exams$V1)
+realdiff <- mean(Exams3$math.score)- mean(Exams$math.score)
+realdiff
+std <- sqrt( (sd(Exams$math.score))^2/length(Exams3$math.score))
+z_score <- realdiff/std
+z_score
+ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
+  xlab("Means")+
+  geom_vline(xintercept = realdiff, color = "red", size = .3)+
+  ylab("Number")+
+  ggtitle("Difference in Means in Math Test Scores with Test Prep")
+
+```
 
 ### Team Conclusion
 
