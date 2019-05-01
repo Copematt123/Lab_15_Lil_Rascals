@@ -147,7 +147,7 @@ ggplot(means, aes(x=V1 ))+
 ```
 
 ### Team Conclusion
-
+Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
 
 ### Lab 2 Reflection
 
