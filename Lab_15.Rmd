@@ -85,7 +85,7 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
 I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. 
 
-#### James's Subquestion
+#### James' Subquestion
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
 perm_mean2 <- function(perms = 1000, n1)
@@ -130,7 +130,7 @@ perm_mean3 <- function(perms = 1000, n1)
   return(mean_mat)
 }
 mean(Exams$writing.score)
-means <- as.tibble(perm_mean2( n1=33))
+means <- as.tibble(perm_mean3( n1=33))
 sd(Exams$V1)
 realdiff2 <- mean(Exams3$writing.score)- mean(Exams$writing.score)
 realdiff2
@@ -144,7 +144,36 @@ ggplot(means, aes(x=V1 ))+
   ylab("Number")+
   ggtitle("Difference in Means in Writing Test Scores with Test Prep")
 
+perm_mean4 <- function(perms = 1000, n1)
+{
+  mean_mat <- matrix(0,1000,1)
+
+  for (i in c(1:perms))
+  {
+    rsamp1 <- sample(Exams3$reading.score, n1, replace = FALSE)
+    A <- mean(rsamp1)
+    B <- mean(Exams$reading.score)
+    mean_mat[[i]] <- (A-B)
+  }
+  return(mean_mat)
+}
+mean(Exams$reading.score)
+means <- as.tibble(perm_mean4( n1=33))
+sd(Exams$V1)
+realdiff3 <- mean(Exams3$reading.score)- mean(Exams$reading.score)
+realdiff3
+std <- sqrt( (sd(Exams$reading.score))^2/length(Exams3$reading.score))
+z_score3 <- realdiff/std
+z_score3
+ggplot(means, aes(x=V1 ))+
+  geom_histogram(binwidth=1)+
+  xlab("Means")+
+  geom_vline(xintercept = realdiff3, color = "red", size = .3)+
+  ylab("Number")+
+  ggtitle("Difference in Means in Reading Test Scores with Test Prep")
+
 ```
+From my results it is obvious that the test prep course has a legitemate affect of the test scores. I would expect to get this result because that is generally the case. looking at the difference in means for those who completed the course and the means of everyone, those who took it generally do 3.6 points better on the math portion, 6.4 points better on the writing portion and 4.7 points better on the reading portion. I would say this is a significant difference especially because all three differences add together, to make a sizable differnece in total score. However we must look to the z-score to see how substantial it is. The z-score for reading is about 4.7 and about 4.5 for both math and writing, which is quite large and shows that these difference in means are most likely not due to chance, but instead are casued by the factor of the test prep course.
 
 ### Team Conclusion
 Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
