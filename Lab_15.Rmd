@@ -24,7 +24,6 @@ This question is extremely important in discovering what trends exist and which 
 library(lubridate)
 ```
 
-
 ```{r}
 Exams_math <- lm(math.score ~ test.preparation.course, data = Exams)
 ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = math.score)) +
@@ -137,7 +136,7 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
 ```
 
 ### Team Conclusion
-
+Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
 
 ### Lab 2 Reflection
 
