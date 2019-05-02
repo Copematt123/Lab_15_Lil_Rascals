@@ -88,7 +88,7 @@ I repeated this process for reading scores and found that it was still statistic
 
 #### James' Subquestion
 How does completing the test preparation course affect the test scores?
-This question is very important because not everyone has the equal acess to such courses and tutors based on their social status. If this course has a legitemate affect on the test scores then it is an unfair advantage that should be offered in a way that gives everyone equal access. However if it does not truely affect the scores than it could be a waste of time.
+This question is very important because not everyone has the equal access to such courses and tutors based on their social status. If this course has a legitimate effect on the test scores then it is an unfair advantage that should be offered in a way that gives everyone equal access. However if it does not truly affect the scores than it could be a waste of time.
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
 perm_mean2 <- function(perms = 1000, n1)
@@ -176,8 +176,7 @@ ggplot(means, aes(x=V1 ))+
   ggtitle("Difference in Means in Reading Test Scores with Test Prep")
 
 ```
-From my results it is obvious that the test prep course has a legitemate affect of the test scores. I would expect to get this result because that is generally the case. looking at the difference in means for those who completed the course and the means of everyone, those who took it generally do 3.6 points better on the math portion, 6.4 points better on the writing portion and 4.7 points better on the reading portion. I would say this is a significant difference especially because all three differences add together, to make a sizable differnece in total score. However we must look to the z-score to see how substantial it is. The z-score for reading is about 4.7 and about 4.5 for both math and writing, which is quite large and shows that these difference in means are most likely not due to chance, but instead are casued by the factor of the test prep course.
-
+From my results it is obvious that the test prep course has a legitimate effect of the test scores. I would expect to get this result because that is generally the case. looking at the difference in means for those who completed the course and the means of everyone, those who took it generally do 3.6 points better on the math portion, 6.4 points better on the writing portion and 4.7 points better on the reading portion. I would say this is a significant difference especially because all three differences add together, to make a sizable difference in total score. However we must look to the z-score to see how substantial it is. The z-score for reading is about 4.7 and about 4.5 for both math and writing, which is quite large and shows that these difference in means are most likely not due to chance, but instead are caused by the factor of the test prep course.
 
 #### Shreeya's Subquestion
 Are there differences in test scores between male and female students?
@@ -248,7 +247,7 @@ Therefore, we would recommend implementing better anti-poverty policies in order
 In addition, we could mandate or encourage the completion of test prep courses for students since completing test prep is correlated with a better performance on tests. 
 
 ### Lab 2 Reflection
-
+Our team goal was to learn to effectively collaborate using github and rstudio. I would say we have gotten much better at doing so.
 
 #### Kelsey's Reflection
 In lab 2, one of my goals was to get better at R throughout the course of this class. I have learned so much about R and R-studio formatting and manipulating data. I have learned how to do permutation tests and gotten better at ggplot. I have come so far and learned so much throughout this class. I feel that I have gotten so much better at R and the tools it comes with. I would say my long term goals are very similar. Although I feel like now I know more about my plans for the future since I am graduating in a week. I also had my assignment for peace corps changed on me and I now leave for Lesotho in September. 
@@ -257,4 +256,4 @@ In lab 2, one of my goals was to get better at R throughout the course of this c
   My long term goals have not changed significantly. I think that I suceeded in my goal of learning to program in R and to use those tools to work with data more knowledgeably than I did at the start of the semester. I've learned a lot about data and what working with data means and I've come very far from when I started the class with no programming knowledge in R and very little statistical knowledge.  
 
 #### James' Reflection
-  
+  One my specific goals was to see the effects of tutoring on scores, which I believe I tested in this assignment above. Obviously this one data set can not be used as the model for all tutoring, however in this situation the prep-course(a form of tutoring) has a legitimate on the scores, that is not due to chance. A more general goal was to get a decent understanding of how to use R to analyze data. I believe I have certainly accomplished this goal. I now hove many ways do do so through graphs, some with linear models permutation tests. My other goals were more long term goals that I still have, but this class has brought me closer to being able to accomplish them.
