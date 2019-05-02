@@ -80,15 +80,14 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
   geom_vline(xintercept = realdiff, color = "red", size = .3)+
   ylab("Number")+
   ggtitle("Difference in Means in Reading Test Scores with Free/Reduced Lunch")
+Exams_math <- lm(math.score ~ reading.score, data = Exams)
+Exams_math
 
 ```
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
-I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. 
-
-
-#### James' Subquestion
-How does completing the test preparation course affect the test scores?
-This question is very important because not everyone has the equal access to such courses and tutors based on their social status. If this course has a legitimate effect on the test scores then it is an unfair advantage that should be offered in a way that gives everyone equal access. However if it does not truly affect the scores than it could be a waste of time.
+I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. I also found out through my linear model that a higher reading score is correlated with a higher math score. Therefore, they aren't necessarily independent of eachother and higher achieving students on the math are more likely to do better on the reading tests as well. 
+The new tools I used are linear model and means test. Using these tools I was able to find how test scores were impacted by free/reduced lunch. This relates to our overall question by telling us what it takes for students to do better on exams and can even help us formulate policy initiatives. 
+#### James's Subquestion
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
 perm_mean2 <- function(perms = 1000, n1)
