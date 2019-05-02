@@ -244,6 +244,8 @@ Findings:
 
 ### Team Conclusion
 Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
+Therefore, we would recommend implementing better anti-poverty policies in order to reduce the amount of students who rely on free and reduced lunch. Also, we could increase support for these students in ways such as having extra tutoring options for them or providing extra test prep classes for them to decrease the difference between the two groups test scores. 
+In addition, we could mandate or encourage the completion of test prep courses for students since completing test prep is correlated with a better performance on tests. 
 
 ### Lab 2 Reflection
 
