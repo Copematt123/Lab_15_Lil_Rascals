@@ -18,28 +18,27 @@ library(gapminder)
 
 ### Overall Question
 How are factors like race, gender, parent's education impacting test performance of students?
-
-This question is extremely important in discovering what trends exist and which students are more likely to succeed in their tests. It will be interesting to see if there is a difference in scores between genders or races. We would also expect an increase in scores somewhat proportionate to an increase in parent's education. 
-=======
-library(lubridate)
-```
-
 ```{r}
-Exams_math <- lm(math.score ~ test.preparation.course, data = Exams)
-ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = math.score)) +
-  geom_jitter()+
-  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
-
-Exams_reading <- lm(reading.score ~ test.preparation.course, data = Exams)
-ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = reading.score)) +
-  geom_jitter()+
-  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
-
-Exams_writing <- lm(writing.score ~ test.preparation.course, data = Exams)
-ggplot(data = Exams, mapping = aes(x = test.preparation.course, y = writing.score)) +
-  geom_jitter()+
-  geom_smooth(method = "lm", na.rm = TRUE, color = "red")
+#get the probability and add it to original data
+Exam1 <- mutate(Exams, Ovr = math.score + reading.score + writing.score)
+TPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(race.ethnicity) %>% summarize(count = n())
+S <- sum(TPS$count)
+TPS <- TPS %>% mutate(Prob = count/S) %>% select(race.ethnicity, Prob)
+Exam1 <- Exam1 %>% 
+  left_join(TPS, by = "race.ethnicity")
+#graph the plot
+ggplot(data = Exam1)+
+ geom_col(aes(x = race.ethnicity ,y = Prob), position = "dodge")+
+  facet_grid(rows = Exam1$gender)+
+  ggtitle("Probability of Each Ethnicity Passing Each Exam Grouped by Gender")+
+  xlab("Race/Ethnicity")+
+  ylab("Probability")
 ```
+###Findings:
+
+###Recomendations:
+
+
 ### Individual SubQuestions
 #### Kelsey's SubQuestion
 How does being on free or reduced lunch impact your test scores?
@@ -198,6 +197,7 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
 ```
 Findings:
   Using permutation tests to compare the difference in scores betweeen male and female students for the math and reading tests, I found that female students did on average five points worse than their male counterparts on the math test and about 7 points better on the reading test. The implications of these tests indicate further research into why female students are doing worse in math and better in english is necessary. A z score of 11.65 indicates these tests are statistically significant. 
+
 
 ### Team Conclusion
 Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
