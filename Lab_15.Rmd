@@ -229,10 +229,24 @@ Findings:
   Using permutation tests to compare the difference in scores betweeen male and female students for the math and reading tests, I found that female students did on average five points worse than their male counterparts on the math test and about 7 points better on the reading test. The implications of these tests indicate further research into why female students are doing worse in math and better in english is necessary. A z score of 11.65 indicates these tests are statistically significant. 
 
 
-### Team Conclusion
+###Conclusion
 Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
 Therefore, we would recommend implementing better anti-poverty policies in order to reduce the amount of students who rely on free and reduced lunch. Also, we could increase support for these students in ways such as having extra tutoring options for them or providing extra test prep classes for them to decrease the difference between the two groups test scores. 
 In addition, we could mandate or encourage the completion of test prep courses for students since completing test prep is correlated with a better performance on tests. 
+
+###Matthews' Subquestion:
+How do test scores get affected if the student doesnt get a full meal for lunch?
+```{r}
+ggplot(data = Exam1)+
+  geom_density(aes(x = Ovr, fill = lunch), kernel = "gaussian")+
+  ggtitle("Density Curve of The Overall Score's Sorted by Their Lunches")+
+  xlab("Overall Scores")+
+  ylab("Density")+
+  theme_bw()
+```
+###Findings:
+Looking at the graph its clear to see that there is a bigger distribution towards students who have standard lunches compared to the free/reduced option. This can confirm that a full meal of lunch will improve your energy and will improve the test overall test scores. 
+
 
 ### Lab 2 Reflection
 
@@ -242,4 +256,6 @@ In lab 2, one of my goals was to get better at R throughout the course of this c
 
 ####Shreeya's Reflection
   My long term goals have not changed significantly. I think that I suceeded in my goal of learning to program in R and to use those tools to work with data more knowledgeably than I did at the start of the semester. I've learned a lot about data and what working with data means and I've come very far from when I started the class with no programming knowledge in R and very little statistical knowledge.  
-  
+
+###Matthew's Reflection:
+In Lab 2 I stated that I wanted to learn keys skill to stand out in the workforce in which I think I have done that with learning R and getting pretty good at it. I also learned how to interpert and analyze the data to make assumptions and answer questions. My long term goals are still the same since I am not really sure of what I will try to be doing for my carrer. I came into this class after taking another computer science class and ended up hating computer science but learning R has showed me that computer science can be fun. 
