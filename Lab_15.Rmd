@@ -59,9 +59,12 @@ ggplot(data = Exam1)+
   labs(color = "Factors")
 ```
 ###Findings:
-After creating the graph and looking at the data its clear to see that 
+After creating the graph and looking at the data its clear to see that the only outlier is the line represeniting the test prep catagory. The test prep catagory represents the linear relationship between the probability of a student getting a passing grade if they completed the test prep or not and their overall score. The slope is negative which would indicate that if you completed the test prep, it doesn't guarantee a passing score. After seeing this negative relationship i looked through the data and saw that there was a 50/50 on completed test preps and the students that did do it, some of them didn't pass the tests.
+The other 4 factors all had positive relationships, some with a bigger coefficient than others, in which there is a larger difference of passing or not. The Lunch catagory has a big difference of probability with having two options. Therefore it can be infered about a little look through the data will show that students who have standard lunch will most liekly pass the test. The rest three, parents education, race/ethnicity, and gender show strong relationshp between having a better probability of passing and their certain traits. 
+###Conclusions:
+In conclusion of looking at the graph and the data there are different factors that have higher chances of passing than other ones. But for the test prep there is really no correlation between finishing it and passing the Exam.
 ###Recomendations:
-
+Our recomendation is to change up the test prep course and try to make it relevant to the exam. Also try and get some help to everyone to better improve their scores so they can be on the other side of the statistic. 
 
 ### Individual SubQuestions
 #### Kelsey's SubQuestion
@@ -128,6 +131,7 @@ Exams_math
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
 I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. I also found out through my linear model that a higher reading score is correlated with a higher math score. Therefore, they aren't necessarily independent of eachother and higher achieving students on the math are more likely to do better on the reading tests as well. 
 The new tools I used are linear model and means test. Using these tools I was able to find how test scores were impacted by free/reduced lunch. This relates to our overall question by telling us what it takes for students to do better on exams and can even help us formulate policy initiatives. 
+
 #### James's Subquestion
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
