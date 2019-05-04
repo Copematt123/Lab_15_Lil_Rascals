@@ -17,25 +17,49 @@ library(gapminder)
 ```
 
 ### Overall Question
-How are factors like race, gender, parent's education impacting test performance of students?
+How do the factors of gender, ethnicity, parents education, yor daily lunch, and a test prep cousre effect the affect the liklihood of a person passing the exam?
 ```{r}
-#get the probability and add it to original data
+#getting ovrall
 Exam1 <- mutate(Exams, Ovr = math.score + reading.score + writing.score)
-TPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(race.ethnicity) %>% summarize(count = n())
-S <- sum(TPS$count)
-TPS <- TPS %>% mutate(Prob = count/S) %>% select(race.ethnicity, Prob)
-Exam1 <- Exam1 %>% 
-  left_join(TPS, by = "race.ethnicity")
+S <- length(Exam1$gender)
+  #get the probability and add it to original data
+#prob for race
+ETPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(race.ethnicity) %>% summarize(count = n())
+ETPS <- ETPS %>% mutate(ProbE = count/S) %>% select(race.ethnicity,ProbE)
+Exam1 <- Exam1 %>% left_join(ETPS, by = "race.ethnicity")
+#prob for gender
+GTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(gender) %>% summarize(count = n())
+GTPS <- GTPS %>% mutate(ProbG = count/S) %>% select(gender, ProbG)
+Exam1 <- Exam1 %>% left_join(GTPS, by = "gender")
+#prob for parent edu
+PTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(parental.level.of.education) %>% summarize(count = n())
+PTPS <- PTPS %>% mutate(ProbP = count/S) %>% select(parental.level.of.education, ProbP)
+Exam1 <- Exam1 %>% left_join(PTPS, by = "parental.level.of.education")
+#prob for lunch
+LTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(lunch) %>% summarize(count = n())
+LTPS <- LTPS %>% mutate(ProbL = count/S) %>% select(lunch, ProbL)
+Exam1 <- Exam1 %>% left_join(LTPS, by = "lunch")
+#prob for test prep
+TTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(test.preparation.course) %>% summarize(count = n())
+TTPS <- TTPS %>% mutate(ProbT = count/S) %>% select(test.preparation.course, ProbT)
+Exam1 <- Exam1 %>% left_join(TTPS, by = "test.preparation.course")
+#add up probabilities
+Exam1 <- Exam1 %>% mutate(PROB = (ProbE * ProbG * ProbP * ProbL * ProbT) * 10)
 #graph the plot
 ggplot(data = Exam1)+
- geom_col(aes(x = race.ethnicity ,y = Prob), position = "dodge")+
-  facet_grid(rows = Exam1$gender)+
-  ggtitle("Probability of Each Ethnicity Passing Each Exam Grouped by Gender")+
-  xlab("Race/Ethnicity")+
-  ylab("Probability")
+  geom_smooth(aes(x = ProbG, y = Ovr, color = "Gender"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbE, y = Ovr, color = "Race/Ethnicity"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbP, y = Ovr, color = "Parent Education"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbL, y = Ovr, color = "Lunch"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbT, y = Ovr, color = "Test Prep"), method = "lm", se = F)+
+  theme_bw()+
+  xlab("Probability")+
+  ylab("Overall Score")+
+  ggtitle("The Linear Relationship of Passing Due to Factors and Thier Overall Score")+
+  labs(color = "Factors")
 ```
 ###Findings:
-
+After creating the graph and looking at the data its clear to see that 
 ###Recomendations:
 
 
