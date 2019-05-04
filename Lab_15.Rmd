@@ -134,6 +134,9 @@ I repeated this process for reading scores and found that it was still statistic
 The new tools I used are linear model and means test. Using these tools I was able to find how test scores were impacted by free/reduced lunch. This relates to our overall question by telling us what it takes for students to do better on exams and can even help us formulate policy initiatives. 
 
 #### James's Subquestion
+How does the completion of the prep-test course affect the scores on the exam?
+
+This question is important because not everyone necessarily has the same access to these courses or other tutoring help. So if it has a legitimate effect on the scores then they should make sure that this course is available to everyone so it is not an unfair advantage.
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
 perm_mean2 <- function(perms = 1000, n1)
