@@ -18,10 +18,55 @@ library(lubridate)
 ```
 
 ### Overall Question
-How are factors like race, gender, parent's education impacting test performance of students?
+How do the factors of gender, ethnicity, parents education, yor daily lunch, and a test prep cousre effect the affect the liklihood of a person passing the exam?
+```{r}
+#getting ovrall
+Exam1 <- mutate(Exams, Ovr = math.score + reading.score + writing.score)
+S <- length(Exam1$gender)
+  #get the probability and add it to original data
+#prob for race
+ETPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(race.ethnicity) %>% summarize(count = n())
+ETPS <- ETPS %>% mutate(ProbE = count/S) %>% select(race.ethnicity,ProbE)
+Exam1 <- Exam1 %>% left_join(ETPS, by = "race.ethnicity")
+#prob for gender
+GTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(gender) %>% summarize(count = n())
+GTPS <- GTPS %>% mutate(ProbG = count/S) %>% select(gender, ProbG)
+Exam1 <- Exam1 %>% left_join(GTPS, by = "gender")
+#prob for parent edu
+PTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(parental.level.of.education) %>% summarize(count = n())
+PTPS <- PTPS %>% mutate(ProbP = count/S) %>% select(parental.level.of.education, ProbP)
+Exam1 <- Exam1 %>% left_join(PTPS, by = "parental.level.of.education")
+#prob for lunch
+LTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(lunch) %>% summarize(count = n())
+LTPS <- LTPS %>% mutate(ProbL = count/S) %>% select(lunch, ProbL)
+Exam1 <- Exam1 %>% left_join(LTPS, by = "lunch")
+#prob for test prep
+TTPS <- Exam1 %>% filter(math.score >= 70, reading.score >= 70, writing.score >= 70) %>% group_by(test.preparation.course) %>% summarize(count = n())
+TTPS <- TTPS %>% mutate(ProbT = count/S) %>% select(test.preparation.course, ProbT)
+Exam1 <- Exam1 %>% left_join(TTPS, by = "test.preparation.course")
+#add up probabilities
+Exam1 <- Exam1 %>% mutate(PROB = (ProbE * ProbG * ProbP * ProbL * ProbT) * 10)
+#graph the plot
+ggplot(data = Exam1)+
+  geom_smooth(aes(x = ProbG, y = Ovr, color = "Gender"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbE, y = Ovr, color = "Race/Ethnicity"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbP, y = Ovr, color = "Parent Education"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbL, y = Ovr, color = "Lunch"), method = "lm", se = F)+
+  geom_smooth(aes(x = ProbT, y = Ovr, color = "Test Prep"), method = "lm", se = F)+
+  theme_bw()+
+  xlab("Probability")+
+  ylab("Overall Score")+
+  ggtitle("The Linear Relationship of Passing Due to Factors and Thier Overall Score")+
+  labs(color = "Factors")
+```
+###Findings:
+After creating the graph and looking at the data its clear to see that the only outlier is the line represeniting the test prep catagory. The test prep catagory represents the linear relationship between the probability of a student getting a passing grade if they completed the test prep or not and their overall score. The slope is negative which would indicate that if you completed the test prep, it doesn't guarantee a passing score. After seeing this negative relationship i looked through the data and saw that there was a 50/50 on completed test preps and the students that did do it, some of them didn't pass the tests.
+The other 4 factors all had positive relationships, some with a bigger coefficient than others, in which there is a larger difference of passing or not. The Lunch catagory has a big difference of probability with having two options. Therefore it can be infered about a little look through the data will show that students who have standard lunch will most liekly pass the test. The rest three, parents education, race/ethnicity, and gender show strong relationshp between having a better probability of passing and their certain traits. 
+###Conclusions:
+In conclusion of looking at the graph and the data there are different factors that have higher chances of passing than other ones. But for the test prep there is really no correlation between finishing it and passing the Exam.
+###Recomendations:
+Our recomendation is to change up the test prep course and try to make it relevant to the exam. Also try and get some help to everyone to better improve their scores so they can be on the other side of the statistic. 
 
-This question is extremely important in discovering what trends exist and which students are more likely to succeed in their tests. It will be interesting to see if there is a difference in scores between genders or races. We would also expect an increase in scores somewhat proportionate to an increase in parent's education. 
-=======
 ### Individual SubQuestions
 #### Kelsey's SubQuestion
 How does being on free or reduced lunch impact your test scores?
@@ -87,6 +132,7 @@ Exams_math
 From the results above it is clear that there is an enormous discrepancy between students who have free and reduced lunch and the average student's test scores. Clearly, students on free or reduced lunch have lower math scores by 7.167 points. Through a permutation test we can see that the difference is present if we run 1000 trials and that the real difference between the two is very obvious. Since our z-score is so enormous 8.9, we know that there is very little change that the difference between these two groups is due to chance alone. Therefore, we can conclude that the results are statistically significant and students with free and reduced lunch have consistently lower math test scores than other students.
 I repeated this process for reading scores and found that it was still statistically significant, but that the difference in scores between the two groups was lower at 4.5 points for those students on free and reduced lunch. Our z-score was 5.8 so our data was still statistically significant. I also found out through my linear model that a higher reading score is correlated with a higher math score. Therefore, they aren't necessarily independent of eachother and higher achieving students on the math are more likely to do better on the reading tests as well. 
 The new tools I used are linear model and means test. Using these tools I was able to find how test scores were impacted by free/reduced lunch. This relates to our overall question by telling us what it takes for students to do better on exams and can even help us formulate policy initiatives. 
+
 #### James's Subquestion
 ```{r}
 Exams3 <- Exams %>% filter(test.preparation.course == "completed") 
@@ -240,10 +286,25 @@ ggplot(means, aes(x=V1 ))+geom_histogram(binwidth=1)+
 Findings:
   Using permutation tests to compare the difference in scores betweeen male and female students for the math and reading tests, I found that female students did on average five points worse than their male counterparts on the math test and about 7 points better on the reading test. The implications of these tests indicate further research into why female students are doing worse in math and better in english is necessary. A z score of 11.65 indicates these tests are statistically significant. 
 
-### Team Conclusion
+
+###Conclusion
 Overall, we found that having a student on free or reduced lunch means there is generally a lower score on the tests. We also found that on average those who completed test prep did better on the exams. 
 Therefore, we would recommend implementing better anti-poverty policies in order to reduce the amount of students who rely on free and reduced lunch. Also, we could increase support for these students in ways such as having extra tutoring options for them or providing extra test prep classes for them to decrease the difference between the two groups test scores. 
 In addition, we could mandate or encourage the completion of test prep courses for students since completing test prep is correlated with a better performance on tests. 
+
+###Matthews' Subquestion:
+How do test scores get affected if the student doesnt get a full meal for lunch?
+```{r}
+ggplot(data = Exam1)+
+  geom_density(aes(x = Ovr, fill = lunch), kernel = "gaussian")+
+  ggtitle("Density Curve of The Overall Score's Sorted by Their Lunches")+
+  xlab("Overall Scores")+
+  ylab("Density")+
+  theme_bw()
+```
+###Findings:
+Looking at the graph its clear to see that there is a bigger distribution towards students who have standard lunches compared to the free/reduced option. This can confirm that a full meal of lunch will improve your energy and will improve the test overall test scores. 
+
 
 ### Lab 2 Reflection
 Our team goal was to learn to effectively collaborate using github and rstudio. I would say we have gotten much better at doing so.
@@ -253,6 +314,4 @@ In lab 2, one of my goals was to get better at R throughout the course of this c
 
 ####Shreeya's Reflection
   My long term goals have not changed significantly. I think that I suceeded in my goal of learning to program in R and to use those tools to work with data more knowledgeably than I did at the start of the semester. I've learned a lot about data and what working with data means and I've come very far from when I started the class with no programming knowledge in R and very little statistical knowledge.  
-
-#### James' Reflection
-  One my specific goals was to see the effects of tutoring on scores, which I believe I tested in this assignment above. Obviously this one data set can not be used as the model for all tutoring, however in this situation the prep-course(a form of tutoring) has a legitimate on the scores, that is not due to chance. A more general goal was to get a decent understanding of how to use R to analyze data. I believe I have certainly accomplished this goal. I now hove many ways do do so through graphs, some with linear models permutation tests. My other goals were more long term goals that I still have, but this class has brought me closer to being able to accomplish them.
+  
